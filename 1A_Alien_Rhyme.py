@@ -1,20 +1,20 @@
 from collections import deque
 
 
-def get_count_over_2_child_nodes(recursive_dict, root=False):
+def get_pair_and_remain(recursive_dict, root=False):
     if not recursive_dict:
         return (0, 1)
 
-    count, remain = (0, 0)
+    pair, remain = (0, 0)
     for k, v in recursive_dict.items():
-        v_count, v_remain = get_count_over_2_child_nodes(v)
-        count, remain = count + v_count , remain + v_remain
+        v_pair, v_remain = get_pair_and_remain(v)
+        pair, remain = pair + v_pair , remain + v_remain
 
     if not root:
         if remain > 1:
-            count, remain = count + 1, remain - 2
+            pair, remain = pair + 1, remain - 2
 
-    return (count, remain)
+    return (pair, remain)
 
 def trie_recursion(trie_ds, word):
     try:
@@ -38,7 +38,7 @@ def solve():
     for word in words:
         trie = trie_recursion(trie, deque(word))
 
-    return get_count_over_2_child_nodes(trie, root=True)[0] * 2
+    return get_pair_and_remain(trie, root=True)[0] * 2
 
 for idx in range(int(input())):
     result = solve()

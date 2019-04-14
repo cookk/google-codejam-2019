@@ -10,9 +10,8 @@ def get_pair_and_remain(recursive_dict, root=False):
         v_pair, v_remain = get_pair_and_remain(v)
         pair, remain = pair + v_pair , remain + v_remain
 
-    if not root:
-        if remain > 1:
-            pair, remain = pair + 1, remain - 2
+    if not root and remain > 1:
+        pair, remain = pair + 1, remain - 2
 
     return (pair, remain)
 
